@@ -1,0 +1,175 @@
+https://api.phila.gov/opa/v1.1/address/3101-23%20POWELTON%20AVE/?format=json
+
+https://api.phila.gov/opa/v1.1/account/241146401?format=json
+
+
+{
+	"status": "success",
+	"total": 1,
+	"data": {
+		"properties": [{
+			"property_id": "8850000409",
+			"account_number": "241225805",
+			"full_address": "409 N 36TH ST",
+			"unit": "",
+			"zip": "19104-2413",
+			"address_match": {
+				"original": "409 N 36TH ST",
+				"standardized": "409 N 36TH ST",
+				"similarity": 100,
+				"match_code": null,
+				"match_type": "ULRSEstimatedParcel"
+			},
+			"geometry": {
+				"x": -75.193921114726137,
+				"y": 39.961658370627475
+			},
+			"ownership": {
+				"owners": ["STOTLAND SEYMOUR"],
+				"liaison": null
+			},
+			"characteristics": {
+				"description": "DET W\/D GAR 3 STY MASONRY",
+				"land_area": 5474,
+				"improvement_area": 2916,
+				"improvement_description": "",
+				"building_code": "C50",
+				"homestead": null
+			},
+			"sales_information": {
+				"sales_date": "\/Date(825397200000-0500)\/",
+				"sales_price": 1,
+				"sales_type": "4"
+			},
+			"valuation_history": [{
+				"certification_year": "2017",
+				"market_value": 490300,
+				"land_taxable": 73545,
+				"land_exempt": 0,
+				"improvement_taxable": 386755,
+				"improvement_exempt": 30000,
+				"total_exempt": 490300,
+				"taxes": null,
+				"certified": "Y"
+			}],
+			"proposed_valuation": {}
+		}]
+	}
+}
+
+
+{
+	"status": "success",
+	"data": {
+		"property": {
+			"property_id": "8850000409",
+			"account_number": "241225805",
+			"full_address": "409 N 36TH ST",
+			"unit": "",
+			"zip": "19104-2413",
+			"geometry": {
+				"x": -75.193921114726137,
+				"y": 39.961658370627475
+			},
+			"ownership": {
+				"owners": ["STOTLAND SEYMOUR"],
+				"liaison": null,
+				"mailing_address": {
+					"street": "409 N 36TH ST",
+					"city": "Philadelphia",
+					"state": "PA",
+					"zip": "19104-2413"
+				}
+			},
+			"characteristics": {
+				"description": "DET W\/D GAR 3 STY MASONRY",
+				"beginning_point": "108' N BARING ST",
+				"land_area": 5474,
+				"improvement_area": 2916,
+				"improvement_description": "",
+				"exterior_condition": "4",
+				"zoning": "RTA1",
+				"zoning_description": "Residential\/Residential Mixed-Use",
+				"building_code": "C50",
+				"homestead": 30000
+			},
+			"sales_information": {
+				"sales_date": "\/Date(825397200000-0500)\/",
+				"sales_price": 1,
+				"sales_type": "4"
+			},
+			"valuation_history": [{
+				"certification_year": "2017",
+				"market_value": 490300,
+				"land_taxable": 73545,
+				"land_exempt": 0,
+				"improvement_taxable": 386755,
+				"improvement_exempt": 30000,
+				"total_exempt": 490300,
+				"taxes": null,
+				"certified": "Y"
+			}, {
+				"certification_year": "2016",
+				"market_value": 490300,
+				"land_taxable": 135500,
+				"land_exempt": 0,
+				"improvement_taxable": 324800,
+				"improvement_exempt": 30000,
+				"total_exempt": 490300,
+				"taxes": 6168.02,
+				"certified": "Y"
+			}, {
+				"certification_year": "2015",
+				"market_value": 490300,
+				"land_taxable": 135500,
+				"land_exempt": 0,
+				"improvement_taxable": 354800,
+				"improvement_exempt": 0,
+				"total_exempt": 490300,
+				"taxes": 6570.02,
+				"certified": "Y"
+			}, {
+				"certification_year": "2014",
+				"market_value": 490300,
+				"land_taxable": 135500,
+				"land_exempt": 0,
+				"improvement_taxable": 354800,
+				"improvement_exempt": 0,
+				"total_exempt": 490300,
+				"taxes": 6570.02,
+				"certified": "Y"
+			}, {
+				"certification_year": "2013",
+				"market_value": 50000,
+				"land_taxable": 4409,
+				"land_exempt": 0,
+				"improvement_taxable": 11591,
+				"improvement_exempt": 0,
+				"total_exempt": 16000,
+				"taxes": 1563.36,
+				"certified": "Y"
+			}, {
+				"certification_year": "2012",
+				"market_value": 50000,
+				"land_taxable": 4409,
+				"land_exempt": 0,
+				"improvement_taxable": 11591,
+				"improvement_exempt": 0,
+				"total_exempt": 16000,
+				"taxes": 1509.12,
+				"certified": "Y"
+			}, {
+				"certification_year": "2011",
+				"market_value": 50000,
+				"land_taxable": 4409,
+				"land_exempt": 0,
+				"improvement_taxable": 11591,
+				"improvement_exempt": 0,
+				"total_exempt": 16000,
+				"taxes": 1453.12,
+				"certified": "Y"
+			}],
+			"proposed_valuation": {}
+		}
+	}
+}

@@ -16,14 +16,16 @@ namespace AutoRecorder
         public string addr = "";
         private string connectURLSuffix = "/?format=json";
         public string OPA = "";
+        public Property prop;
 
+        public HttpHelper() { }
         public HttpHelper(string addr, string OPA)
         {
             this.addr = addr;
             this.OPA = OPA;
         }
 
-        public string firstCall()
+        public void firstCall()
         {
             string connectURL = groupURL();
             Console.Out.WriteLine(connectURL); 
@@ -40,15 +42,20 @@ namespace AutoRecorder
             string responseFromServer = reader.ReadToEnd();
             JsonValue jsonObject = JsonObject.Parse(responseFromServer);
             // Display the content.
-            if (jsonObject["data"]["properties"].Count > 0)
+            if (jsonObject["data"]["properties"].Count == 1)
             {
                 Console.WriteLine(jsonObject["data"]["properties"][0]["account_number"]);
+                prop = new Property();
+                prop.Address = this.addr;
+                prop.Street = jsonObject["data"]["properties"][0]["address_match"]["standardized"].ToString();
+                prop.OPA = this.addr;
+
             }
 
             // Clean up the streams and the response.
             reader.Close();
             response.Close();
-            return "";
+
         }
 
         private string groupURL() {
