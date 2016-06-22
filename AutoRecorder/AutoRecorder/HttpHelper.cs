@@ -12,9 +12,9 @@ namespace AutoRecorder
 {
     class HttpHelper
     {
-        private string connectURLPrefix = "https://api.phila.gov/opa/v1.1/address/";
+        private string connectURLPrefix = "https://api.phila.gov/opa/v1.1/account/";
         public string addr = "";
-        private string connectURLSuffix = "/?format=json";
+        private string connectURLSuffix = "?format=json";
         public string OPA = "";
         public Property prop;
 
@@ -25,7 +25,7 @@ namespace AutoRecorder
             this.OPA = OPA;
         }
 
-        public void firstCall()
+        public void OPACall()
         {
             string connectURL = groupURL();
             Console.Out.WriteLine(connectURL); 
@@ -40,28 +40,39 @@ namespace AutoRecorder
             StreamReader reader = new StreamReader(dataStream);
             // Read the content.
             string responseFromServer = reader.ReadToEnd();
-            JsonValue jsonObject = JsonObject.Parse(responseFromServer);
+            dynamic jsonObject = JsonObject.Parse(responseFromServer);
+            Console.WriteLine(jsonObject.status.ToString());
             // Display the content.
-            if (jsonObject["data"]["properties"].Count == 1)
+            if (jsonObject.status.ToString() != "error" && jsonObject["data"]["properties"].Count == 1)
             {
                 Console.WriteLine(jsonObject["data"]["properties"][0]["account_number"]);
                 prop = new Property();
                 prop.Address = this.addr;
                 prop.Street = jsonObject["data"]["properties"][0]["address_match"]["standardized"].ToString();
-                prop.OPA = this.addr;
-
+                prop.OPA = this.OPA;
+                prop.LatestMarketValue = Int64.Parse(jsonObject["data"]["properties"][0]["valuation_history"][0]["market_value"].ToString());
+                prop.ExemptLand = Int64.Parse(jsonObject["data"]["properties"][0]["valuation_history"][0]["market_value"].ToString());
+                prop.ExemptImprovement = Int64.Parse(jsonObject["data"]["properties"][0]["valuation_history"][0]["improvement_exempt"].ToString());
+                if (jsonObject["data"]["properties"][0]["characteristics"]["homestead"] != null)
+                {
+                    prop.HomesteadExemption = "Yes";
+                }
+                else
+                {
+                    prop.HomesteadExemption = "No";
+                }
+                prop.Zoning = jsonObject["data"]["properties"][0]["characteristics"]["zoning"].ToString();
             }
 
             // Clean up the streams and the response.
             reader.Close();
             response.Close();
-
         }
 
         private string groupURL() {
             StringBuilder sb = new StringBuilder();
             sb.Append(connectURLPrefix);
-            sb.Append(addr);
+            sb.Append(this.OPA);
             sb.Append(connectURLSuffix);
             return Regex.Replace(sb.ToString(), @"\s+", "%20");
         }

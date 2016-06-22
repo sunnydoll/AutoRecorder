@@ -17,7 +17,7 @@ namespace AutoRecorder
         public long LatestMarketValue = 0;
         public long ExemptLand = 0;
         public long ExemptImprovement = 0;
-        public long HomesteadExemption = 0;
+        public string HomesteadExemption = "";
         public string Zoning = "";
         public long TotalTaxOwed = 0;
         public string TaxStatus = "";
