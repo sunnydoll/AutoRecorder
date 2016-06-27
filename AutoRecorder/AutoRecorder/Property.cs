@@ -12,6 +12,7 @@ namespace AutoRecorder
         public string Street = "";
         public string OPA = ""; //account number
         public string Owner = "";
+        public string MailingAddress = "";
         public string MailingAddressCity = "";
         public string MailingAddressZipCode = "";
         public long LatestMarketValue = 0;

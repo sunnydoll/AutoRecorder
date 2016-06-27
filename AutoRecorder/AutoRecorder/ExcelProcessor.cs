@@ -14,7 +14,8 @@ namespace AutoRecorder
         //static string[] addrList = new string[2] { "300 N. 33rd St.", "400 N. 33rd St." }; 
         static void Main(string[] args)
         {
-            var package = new ExcelPackage(new FileInfo("Powelton_Updated.xlsx"));
+            string path = "Powelton.xlsx";
+            var package = new ExcelPackage(new FileInfo(path));
             for (int h = 1; h <= 1; h++)
             {
                 //h <= package.Workbook.Worksheets.Count
@@ -44,25 +45,46 @@ namespace AutoRecorder
                         else if (j == 3)
                         {
                             httpHelper.OPA = cellValue.ToString();
-                        }
-                        else if (httpHelper.OPA == "" || httpHelper.addr == "")
-                        {
-                            break;
+                            if (httpHelper.OPA != "" && httpHelper.addr != "")
+                            {
+                                httpHelper.OPACall();
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                         else
                         {
-                            Console.Out.WriteLine(httpHelper.addr);
-                            Console.Out.WriteLine(httpHelper.OPA);
-                            httpHelper.OPACall();
+                            if(j == 4)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.Owner;
+                            else if (j == 5)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddress;
+                            else if(j == 6)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddressCity;
+                            else if (j == 7)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddressZipCode;
+                            else if (j == 8)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.LatestMarketValue;
+                            else if (j == 9)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.ExemptLand;
+                            else if (j == 10)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.ExemptImprovement;
+                            else if (j == 11)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.HomesteadExemption;
+                            else if (j == 12)
+                                workSheet.Cells[i, j].Value = httpHelper.prop.Zoning;
+
                             //break;
                         }
                     }
-
+                    Console.WriteLine(httpHelper.prop.Owner);
+                    Console.WriteLine(httpHelper.prop.MailingAddress);
                 }
             }
-            
-            //HttpHelper helper = new HttpHelper("409 N 36TH ST");
-            //helper.firstCall();
+            package.Save();
+            package.Dispose();
+
         }
     }
 }

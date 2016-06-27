@@ -33,6 +33,7 @@ namespace AutoRecorder
             //request.Headers.Add(HttpRequestHeader.ContentType, "application/json");
             request.Method = "GET";
             WebResponse response = request.GetResponse();
+            // OK
             Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             // Get the stream containing content returned by the server.
             Stream dataStream = response.GetResponseStream();
@@ -42,18 +43,23 @@ namespace AutoRecorder
             string responseFromServer = reader.ReadToEnd();
             dynamic jsonObject = JsonObject.Parse(responseFromServer);
             Console.WriteLine(jsonObject.status.ToString());
-            // Display the content.
-            if (jsonObject.status.ToString() != "error" && jsonObject["data"]["properties"].Count == 1)
+            Console.WriteLine(jsonObject.status.ToString() == "success");
+            Console.WriteLine(jsonObject.status.ToString() == "error");
+            prop = new Property();
+            if (jsonObject.status.ToString() == "success")
             {
-                Console.WriteLine(jsonObject["data"]["properties"][0]["account_number"]);
-                prop = new Property();
+                Console.WriteLine(jsonObject["data"]["property"]["valuation_history"][0]["market_value"]);
                 prop.Address = this.addr;
-                prop.Street = jsonObject["data"]["properties"][0]["address_match"]["standardized"].ToString();
+                prop.Street = jsonObject["data"]["property"]["full_address"].ToString();
                 prop.OPA = this.OPA;
-                prop.LatestMarketValue = Int64.Parse(jsonObject["data"]["properties"][0]["valuation_history"][0]["market_value"].ToString());
-                prop.ExemptLand = Int64.Parse(jsonObject["data"]["properties"][0]["valuation_history"][0]["market_value"].ToString());
-                prop.ExemptImprovement = Int64.Parse(jsonObject["data"]["properties"][0]["valuation_history"][0]["improvement_exempt"].ToString());
-                if (jsonObject["data"]["properties"][0]["characteristics"]["homestead"] != null)
+                prop.Owner = jsonObject["data"]["properties"]["ownership"]["owners"].ToString();
+                prop.MailingAddress = jsonObject["data"]["property"]["ownership"]["mailing_address"]["street"].ToString();
+                prop.MailingAddressCity = jsonObject["data"]["property"]["ownership"]["mailing_address"]["city"].ToString();
+                prop.MailingAddressZipCode = jsonObject["data"]["property"]["ownership"]["mailing_address"]["zip"].ToString();
+                prop.LatestMarketValue = Int64.Parse(jsonObject["data"]["property"]["valuation_history"][0]["market_value"].ToString());
+                prop.ExemptLand = Int64.Parse(jsonObject["data"]["property"]["valuation_history"][0]["land_exempt"].ToString());
+                prop.ExemptImprovement = Int64.Parse(jsonObject["data"]["property"]["valuation_history"][0]["improvement_exempt"].ToString());
+                if (jsonObject["data"]["property"]["characteristics"]["homestead"] != null)
                 {
                     prop.HomesteadExemption = "Yes";
                 }
@@ -61,7 +67,7 @@ namespace AutoRecorder
                 {
                     prop.HomesteadExemption = "No";
                 }
-                prop.Zoning = jsonObject["data"]["properties"][0]["characteristics"]["zoning"].ToString();
+                prop.Zoning = jsonObject["data"]["property"]["characteristics"]["zoning"].ToString();
             }
 
             // Clean up the streams and the response.
