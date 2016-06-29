@@ -1,5 +1,4 @@
 C:\workspace\AutoRecorder\AutoRecorder\bin\Debug\AutoRecorder.exe.config
-C:\workspace\AutoRecorder\AutoRecorder\obj\Debug\AutoRecorder.csprojResolveAssemblyReference.cache
 C:\workspace\AutoRecorder\AutoRecorder\bin\Debug\AutoRecorder.exe
 C:\workspace\AutoRecorder\AutoRecorder\bin\Debug\AutoRecorder.pdb
 C:\workspace\AutoRecorder\AutoRecorder\bin\Debug\EPPlus.dll
@@ -7,3 +6,4 @@ C:\workspace\AutoRecorder\AutoRecorder\obj\Debug\AutoRecorder.exe
 C:\workspace\AutoRecorder\AutoRecorder\obj\Debug\AutoRecorder.pdb
 C:\workspace\AutoRecorder\AutoRecorder\bin\Debug\System.Json.dll
 C:\workspace\AutoRecorder\AutoRecorder\bin\Debug\System.Json.xml
+C:\workspace\AutoRecorder\AutoRecorder\obj\Debug\AutoRecorder.csprojResolveAssemblyReference.cache

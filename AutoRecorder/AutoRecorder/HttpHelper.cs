@@ -28,13 +28,13 @@ namespace AutoRecorder
         public void OPACall()
         {
             string connectURL = groupURL();
-            Console.Out.WriteLine(connectURL); 
+            Console.Out.WriteLine(connectURL);
             WebRequest request = WebRequest.Create(connectURL);
             //request.Headers.Add(HttpRequestHeader.ContentType, "application/json");
             request.Method = "GET";
             WebResponse response = request.GetResponse();
             // OK
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            //Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             // Get the stream containing content returned by the server.
             Stream dataStream = response.GetResponseStream();
             // Open the stream using a StreamReader for easy access.
@@ -42,17 +42,17 @@ namespace AutoRecorder
             // Read the content.
             string responseFromServer = reader.ReadToEnd();
             dynamic jsonObject = JsonObject.Parse(responseFromServer);
-            Console.WriteLine(jsonObject.status.ToString());
-            Console.WriteLine(jsonObject.status.ToString() == "success");
-            Console.WriteLine(jsonObject.status.ToString() == "error");
             prop = new Property();
-            if (jsonObject.status.ToString() == "success")
+            if (jsonObject.status.ToString().IndexOf("success") > -1)
             {
-                Console.WriteLine(jsonObject["data"]["property"]["valuation_history"][0]["market_value"]);
+                //Console.WriteLine(jsonObject["data"]["property"]["ownership"]["owners"].GetType());
+                //Console.WriteLine(jsonObject["data"]["property"]["ownership"]["owners"]);
                 prop.Address = this.addr;
                 prop.Street = jsonObject["data"]["property"]["full_address"].ToString();
                 prop.OPA = this.OPA;
-                prop.Owner = jsonObject["data"]["properties"]["ownership"]["owners"].ToString();
+                //JsonArray jsonArr = new JsonArray(jsonObject["data"]["property"]["ownership"]["owners"]);
+                //Console.WriteLine(jsonArr.ToString());
+                prop.Owner = jsonObject["data"]["property"]["ownership"]["owners"].ToString();
                 prop.MailingAddress = jsonObject["data"]["property"]["ownership"]["mailing_address"]["street"].ToString();
                 prop.MailingAddressCity = jsonObject["data"]["property"]["ownership"]["mailing_address"]["city"].ToString();
                 prop.MailingAddressZipCode = jsonObject["data"]["property"]["ownership"]["mailing_address"]["zip"].ToString();

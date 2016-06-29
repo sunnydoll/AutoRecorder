@@ -15,21 +15,29 @@ namespace AutoRecorder
         static void Main(string[] args)
         {
             string path = "Powelton.xlsx";
+            string tempPath = "Powelton_temp.xlsx";
+            FileInfo tempFile = new FileInfo(tempPath);
+            if (tempFile.Exists)
+            {
+                tempFile.Delete();
+            }
+            var holdingStream = new MemoryStream();
             var package = new ExcelPackage(new FileInfo(path));
-            for (int h = 1; h <= 1; h++)
+            int sumTabs = package.Workbook.Worksheets.Count;
+            for (int h = 1; h <= sumTabs; h++)
             {
                 //h <= package.Workbook.Worksheets.Count
                 ExcelWorksheet workSheet = package.Workbook.Worksheets[h];
-                Console.Out.WriteLine("This is hh " + h);
+                Console.Out.WriteLine("This is hh " + h + " out of " + sumTabs);
                 for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
                 {
                     StringBuilder sbAddr = new StringBuilder();
                     HttpHelper httpHelper = new HttpHelper();
-                    Console.Out.WriteLine("This is iii " + i);
+                    //Console.Out.WriteLine("This is iii " + i);
                     for (int j = workSheet.Dimension.Start.Column; j <= workSheet.Dimension.End.Column; j++)
                     {
                         object cellValue = workSheet.Cells[i, j].Value;
-                        Console.Out.WriteLine("This is jjjj " + j);
+                        //Console.Out.WriteLine("This is jjjj " + j);
                         if(cellValue == null && j < 4) {
                             break;
                         }
@@ -78,12 +86,18 @@ namespace AutoRecorder
                             //break;
                         }
                     }
-                    Console.WriteLine(httpHelper.prop.Owner);
-                    Console.WriteLine(httpHelper.prop.MailingAddress);
+                    //Console.WriteLine(httpHelper.prop.Owner);
+                    //Console.WriteLine(httpHelper.prop.MailingAddress);
                 }
+                package.SaveAs(tempFile);
+                holdingStream.SetLength(0);
+                package.Stream.Position = 0;
+                package.Stream.CopyTo(holdingStream);
+                package.Load(holdingStream);
             }
             package.Save();
             package.Dispose();
+            holdingStream.Dispose();
 
         }
     }
