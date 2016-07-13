@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 
 namespace AutoRecorder
@@ -24,21 +25,20 @@ namespace AutoRecorder
             var holdingStream = new MemoryStream();
             var package = new ExcelPackage(new FileInfo(path));
             int sumTabs = package.Workbook.Worksheets.Count;
-            for (int h = 1; h <= sumTabs; h++)
+            for (int h = 1; h <= 2; h++)
             {
                 //h <= package.Workbook.Worksheets.Count
                 ExcelWorksheet workSheet = package.Workbook.Worksheets[h];
-                Console.Out.WriteLine("This is hh " + h + " out of " + sumTabs);
+                Console.Out.WriteLine("Start processing the No. " + h + " tab out of " + sumTabs);
                 for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
                 {
                     StringBuilder sbAddr = new StringBuilder();
                     HttpHelper httpHelper = new HttpHelper();
-                    //Console.Out.WriteLine("This is iii " + i);
                     for (int j = workSheet.Dimension.Start.Column; j <= workSheet.Dimension.End.Column; j++)
                     {
                         object cellValue = workSheet.Cells[i, j].Value;
-                        //Console.Out.WriteLine("This is jjjj " + j);
-                        if(cellValue == null && j < 4) {
+                        if (cellValue == null && j < 4)
+                        {
                             break;
                         }
                         else if (j == 1)
@@ -64,11 +64,11 @@ namespace AutoRecorder
                         }
                         else
                         {
-                            if(j == 4)
+                            if (j == 4)
                                 workSheet.Cells[i, j].Value = httpHelper.prop.Owner;
                             else if (j == 5)
                                 workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddress;
-                            else if(j == 6)
+                            else if (j == 6)
                                 workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddressCity;
                             else if (j == 7)
                                 workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddressZipCode;
@@ -86,19 +86,24 @@ namespace AutoRecorder
                             //break;
                         }
                     }
-                    //Console.WriteLine(httpHelper.prop.Owner);
-                    //Console.WriteLine(httpHelper.prop.MailingAddress);
+                    Console.WriteLine("Finishing one property for 3 seconds....");
+                    System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("One property Done");
                 }
                 package.SaveAs(tempFile);
                 holdingStream.SetLength(0);
                 package.Stream.Position = 0;
                 package.Stream.CopyTo(holdingStream);
                 package.Load(holdingStream);
+                Console.WriteLine("Finishing one tab for 5 seconds....");
+                System.Threading.Thread.Sleep(5000);
+                Console.WriteLine("Finish holding");
             }
             package.Save();
             package.Dispose();
             holdingStream.Dispose();
-
+            Console.Write("Press any key to exit... ");
+            Console.ReadKey();
         }
     }
 }
