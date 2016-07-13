@@ -80,7 +80,8 @@ namespace AutoRecorder
             sb.Append(connectURLPrefix);
             sb.Append(this.OPA);
             sb.Append(connectURLSuffix);
-            return Regex.Replace(sb.ToString(), @"\s+", "%20");
+            Uri uri = new Uri(sb.ToString());
+            return uri.AbsoluteUri;
         }
 
     }
