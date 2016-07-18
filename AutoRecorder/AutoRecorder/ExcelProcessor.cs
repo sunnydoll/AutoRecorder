@@ -25,7 +25,7 @@ namespace AutoRecorder
             var holdingStream = new MemoryStream();
             var package = new ExcelPackage(new FileInfo(path));
             int sumTabs = package.Workbook.Worksheets.Count;
-            for (int h = 1; h <= 2; h++)
+            for (int h = 1; h <= package.Workbook.Worksheets.Count; h++)
             {
                 //h <= package.Workbook.Worksheets.Count
                 ExcelWorksheet workSheet = package.Workbook.Worksheets[h];
@@ -55,6 +55,12 @@ namespace AutoRecorder
                             httpHelper.OPA = cellValue.ToString();
                             if (httpHelper.OPA != "" && httpHelper.addr != "")
                             {
+                                //httpHelper.TaxCall();
+                                //Console.Write("Press any key to continue... ");
+                                //Console.ReadKey();
+                                //Console.WriteLine("Finishing tax call for 3 seconds....");
+                                //System.Threading.Thread.Sleep(3000);
+                                //Console.WriteLine("Tax Call Done");
                                 httpHelper.OPACall();
                             }
                             else
