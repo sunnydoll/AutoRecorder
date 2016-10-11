@@ -18,6 +18,7 @@ namespace AutoRecorder
             string path = "Powelton.xlsx";
             string tempPath = "Powelton_temp.xlsx";
             FileInfo tempFile = new FileInfo(tempPath);
+            FileInfo resFile = new FileInfo(path);
             if (tempFile.Exists)
             {
                 tempFile.Delete();
@@ -52,16 +53,22 @@ namespace AutoRecorder
                         }
                         else if (j == 3)
                         {
+                            //if (workSheet.Cells[i, j + 1].Value != null)
+                            //{
+                            //    Console.WriteLine(httpHelper.addr);
+                            //    Console.WriteLine("Already Have Value.");
+                            //    break;
+                            //}
                             httpHelper.OPA = cellValue.ToString();
                             if (httpHelper.OPA != "" && httpHelper.addr != "")
                             {
-                                //httpHelper.TaxCall();
+                                httpHelper.TaxCall();
                                 //Console.Write("Press any key to continue... ");
                                 //Console.ReadKey();
                                 //Console.WriteLine("Finishing tax call for 3 seconds....");
                                 //System.Threading.Thread.Sleep(3000);
                                 //Console.WriteLine("Tax Call Done");
-                                httpHelper.OPACall();
+                                //httpHelper.OPACall();
                             }
                             else
                             {
@@ -71,25 +78,21 @@ namespace AutoRecorder
                         else
                         {
                             if (j == 4)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.Owner;
-                            else if (j == 5)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddress;
-                            else if (j == 6)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddressCity;
-                            else if (j == 7)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.MailingAddressZipCode;
-                            else if (j == 8)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.LatestMarketValue;
-                            else if (j == 9)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.ExemptLand;
-                            else if (j == 10)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.ExemptImprovement;
-                            else if (j == 11)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.HomesteadExemption;
-                            else if (j == 12)
-                                workSheet.Cells[i, j].Value = httpHelper.prop.Zoning;
-
-                            //break;
+                            {
+                                //workSheet.Cells[i, j].Value = httpHelper.prop.Owner;
+                                //workSheet.Cells[i, j + 1].Value = httpHelper.prop.MailingAddress;
+                                //workSheet.Cells[i, j + 2].Value = httpHelper.prop.MailingAddressCity;
+                                //workSheet.Cells[i, j + 3].Value = httpHelper.prop.MailingAddressZipCode;
+                                //workSheet.Cells[i, j + 4].Value = httpHelper.prop.SalesDate.ToString();
+                                //workSheet.Cells[i, j + 5].Value = httpHelper.prop.SalesPrice;
+                                //workSheet.Cells[i, j + 6].Value = httpHelper.prop.LatestMarketValue;
+                                //workSheet.Cells[i, j + 7].Value = httpHelper.prop.ExemptLand;
+                                //workSheet.Cells[i, j + 8].Value = httpHelper.prop.ExemptImprovement;
+                                //workSheet.Cells[i, j + 9].Value = httpHelper.prop.HomesteadExemption;
+                                //workSheet.Cells[i, j + 10].Value = httpHelper.prop.Zoning;
+                                workSheet.Cells[i, j + 11].Value = httpHelper.prop.TaxOwed;
+                                break;
+                            }
                         }
                     }
                     Console.WriteLine("Finishing one property for 3 seconds....");

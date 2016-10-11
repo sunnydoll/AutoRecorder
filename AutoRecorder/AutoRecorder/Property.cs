@@ -20,8 +20,9 @@ namespace AutoRecorder
         public long ExemptImprovement = 0;
         public string HomesteadExemption = "";
         public string Zoning = "";
-        public long TotalTaxOwed = 0;
-        public string TaxStatus = "";
+        public double SalesPrice = 0.0;
+        public DateTime? SalesDate = null;
+        public double TaxOwed = 0.0;
 
         public Property() { }
     }
