@@ -15,8 +15,8 @@ namespace AutoRecorder
         //static string[] addrList = new string[2] { "300 N. 33rd St.", "400 N. 33rd St." }; 
         static void Main(string[] args)
         {
-            string path = "Powelton.xlsx";
-            string tempPath = "Powelton_temp.xlsx";
+            string path = "East Parkside.xlsx";
+            string tempPath = "East Parkside_temp.xlsx";
             FileInfo tempFile = new FileInfo(tempPath);
             FileInfo resFile = new FileInfo(path);
             if (tempFile.Exists)
@@ -35,6 +35,7 @@ namespace AutoRecorder
                 {
                     StringBuilder sbAddr = new StringBuilder();
                     HttpHelper httpHelper = new HttpHelper();
+                    Console.WriteLine(h + "is the tab No.");
                     for (int j = workSheet.Dimension.Start.Column; j <= workSheet.Dimension.End.Column; j++)
                     {
                         object cellValue = workSheet.Cells[i, j].Value;
@@ -63,12 +64,10 @@ namespace AutoRecorder
                             if (httpHelper.OPA != "" && httpHelper.addr != "")
                             {
                                 httpHelper.TaxCall();
-                                //Console.Write("Press any key to continue... ");
-                                //Console.ReadKey();
-                                //Console.WriteLine("Finishing tax call for 3 seconds....");
-                                //System.Threading.Thread.Sleep(3000);
-                                //Console.WriteLine("Tax Call Done");
-                                //httpHelper.OPACall();
+                                Console.WriteLine("Finishing tax call for 3 seconds....");
+                                System.Threading.Thread.Sleep(5000);
+                                Console.WriteLine("Tax Call Done");
+                                httpHelper.OPACall();
                             }
                             else
                             {
@@ -79,17 +78,17 @@ namespace AutoRecorder
                         {
                             if (j == 4)
                             {
-                                //workSheet.Cells[i, j].Value = httpHelper.prop.Owner;
-                                //workSheet.Cells[i, j + 1].Value = httpHelper.prop.MailingAddress;
-                                //workSheet.Cells[i, j + 2].Value = httpHelper.prop.MailingAddressCity;
-                                //workSheet.Cells[i, j + 3].Value = httpHelper.prop.MailingAddressZipCode;
-                                //workSheet.Cells[i, j + 4].Value = httpHelper.prop.SalesDate.ToString();
-                                //workSheet.Cells[i, j + 5].Value = httpHelper.prop.SalesPrice;
-                                //workSheet.Cells[i, j + 6].Value = httpHelper.prop.LatestMarketValue;
-                                //workSheet.Cells[i, j + 7].Value = httpHelper.prop.ExemptLand;
-                                //workSheet.Cells[i, j + 8].Value = httpHelper.prop.ExemptImprovement;
-                                //workSheet.Cells[i, j + 9].Value = httpHelper.prop.HomesteadExemption;
-                                //workSheet.Cells[i, j + 10].Value = httpHelper.prop.Zoning;
+                                workSheet.Cells[i, j].Value = httpHelper.prop.Owner;
+                                workSheet.Cells[i, j + 1].Value = httpHelper.prop.MailingAddress;
+                                workSheet.Cells[i, j + 2].Value = httpHelper.prop.MailingAddressCity;
+                                workSheet.Cells[i, j + 3].Value = httpHelper.prop.MailingAddressZipCode;
+                                workSheet.Cells[i, j + 4].Value = httpHelper.prop.SalesDate.ToString();
+                                workSheet.Cells[i, j + 5].Value = httpHelper.prop.SalesPrice;
+                                workSheet.Cells[i, j + 6].Value = httpHelper.prop.LatestMarketValue;
+                                workSheet.Cells[i, j + 7].Value = httpHelper.prop.ExemptLand;
+                                workSheet.Cells[i, j + 8].Value = httpHelper.prop.ExemptImprovement;
+                                workSheet.Cells[i, j + 9].Value = httpHelper.prop.HomesteadExemption;
+                                workSheet.Cells[i, j + 10].Value = httpHelper.prop.Zoning;
                                 workSheet.Cells[i, j + 11].Value = httpHelper.prop.TaxOwed;
                                 break;
                             }
